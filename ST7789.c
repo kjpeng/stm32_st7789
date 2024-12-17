@@ -60,7 +60,7 @@ void ST7789_Init(void) {
     uint8_t data[] = {0x0C, 0x0C, 0x00, 0x33, 0x33};
     ST7789_WriteData(data, sizeof(data));
   }
-  ST7789_SetRotation(ST7789_ROTATION);
+  ST7789_SetRotation();
 
   ST7789_WriteCommand(0XB7);         // Gate Control
   ST7789_WriteSmallData(0x35);      // Default value
@@ -101,7 +101,7 @@ void ST7789_Init(void) {
   ST7789_Fill_Color(COLOR_BLACK);
 }
 
-void ST7789_SetRotation(uint8_t m) {
+void ST7789_SetRotation(void) {
   ST7789_WriteCommand(ST7789_MADCTL);
   ST7789_WriteSmallData(ST7789_MADCTL_MX | ST7789_MADCTL_MV | ST7789_MADCTL_RGB);
 }

@@ -3,6 +3,7 @@
 #define _ST7789_H_
 
 #include <stdint.h>
+#include "stm32g4xx_hal.h"
 
 #define ST7789_WIDTH 240
 #define ST7789_HEIGHT 135
@@ -64,10 +65,10 @@
 
 extern SPI_HandleTypeDef hspi1;
 
-extern *GPIO_TypeDef cs_port;
+extern GPIO_TypeDef *cs_port;
 extern uint16_t cs_pin;
 
-extern *GPIO_TypeDef dc_port;
+extern GPIO_TypeDef *dc_port;
 extern uint16_t dc_pin;
 
 // this implementation does not use the rst pin
@@ -80,7 +81,7 @@ void ST7789_WriteData(uint8_t *buf, uint16_t buf_size);
 void ST7789_WriteSmallData(uint8_t data);
 
 void ST7789_Init(void);
-void ST7789_SetRotation(uint8_t m);
+void ST7789_SetRotation(void);
 void ST7789_Fill_Color(uint16_t color);
 void ST7789_DrawPixel(uint16_t x, uint16_t y, uint16_t color);
 void ST7789_Fill(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint16_t color);
