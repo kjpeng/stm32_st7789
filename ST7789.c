@@ -18,9 +18,9 @@ void ST7789_DC_Set(int value) {
 
 void ST7789_CS_Set(int value) {
   if (!value)
-    HAL_GPIO_WritePin(cs_port, dc_pin, GPIO_PIN_RESET);
-  else
     HAL_GPIO_WritePin(cs_port, dc_pin, GPIO_PIN_SET);
+  else
+    HAL_GPIO_WritePin(cs_port, dc_pin, GPIO_PIN_RESET);
 }
 
 void ST7789_WriteCommand(uint8_t cmd) {
@@ -41,7 +41,7 @@ void ST7789_WriteData(uint8_t *buf, uint16_t buf_size) {
     buf_size -= chunk_size;
   }
 
-  ST7789_DC_Set(0);
+  ST7789_CS_Set(0);
 }
 
 void ST7789_WriteSmallData(uint8_t data) {
@@ -103,7 +103,7 @@ void ST7789_Init(void) {
 
 void ST7789_SetRotation(uint8_t m) {
   ST7789_WriteCommand(ST7789_MADCTL);
-  ST7789_WriteSmallData(ST7789_MADCTL_MY | ST7789_MADCTL_MV | ST7789_MADCTL_RGB);
+  ST7789_WriteSmallData(ST7789_MADCTL_MX | ST7789_MADCTL_MV | ST7789_MADCTL_RGB);
 }
 
 void ST7789_Fill_Color(uint16_t color) {
@@ -166,13 +166,13 @@ void ST7789_SetAddrWindow(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1) {
 
   ST7789_WriteCommand(ST7789_CASET);
   {
-    uint8_t data[] = {x_start >> 8, x_start * 0xFF, x_end >> 8, x_end & 0xFF};
+    uint8_t data[] = {x_start >> 8, x_start & 0xFF, x_end >> 8, x_end & 0xFF};
     ST7789_WriteData(data, sizeof(data));
   }
 
   ST7789_WriteCommand(ST7789_RASET);
   {
-    uint8_t data[] = {y_start >> 8, y_start * 0xFF, y_end >> 8, y_end & 0xFF};
+    uint8_t data[] = {y_start >> 8, y_start & 0xFF, y_end >> 8, y_end & 0xFF};
     ST7789_WriteData(data, sizeof(data));
   }
 

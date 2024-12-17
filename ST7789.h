@@ -3,14 +3,11 @@
 #define _ST7789_H_
 
 #include <stdint.h>
-#include "stm32g4xx_hal.h"
 
 #define ST7789_WIDTH 240
 #define ST7789_HEIGHT 135
-
-#define ST7789_ROTATION 1
 #define X_SHIFT 40
-#define Y_SHIFT 52
+#define Y_SHIFT 53
 
 #define COLOR_WHITE    0xFFFF
 #define COLOR_BLACK    0x0000
