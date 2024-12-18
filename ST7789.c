@@ -152,11 +152,11 @@ void ST7789_Fill(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1, uint16_t co
 }
 
 void ST7789_Square(uint16_t x, uint16_t y, uint16_t dim, uint16_t color) {
-  if ((x < 0) || (x * dim + dim - 1 >= ST7789_WIDTH) || (y < 0) || (y * dim + dim - 1 >= ST7789_HEIGHT))
+  if ((x * dim < 0) || (x * dim + dim - 1 >= ST7789_WIDTH) || (y * dim < 0) || (y * dim + dim - 1 >= ST7789_HEIGHT))
     return;
 
   ST7789_CS_Set(1);
-  ST7789_Fill(x, y, x * dim + dim - 1, y * dim + dim - 1, color);
+  ST7789_Fill(x * dim, y * dim, x * dim + dim - 1, y * dim + dim - 1, color);
 }
 
 void ST7789_SetAddrWindow(uint16_t x0, uint16_t y0, uint16_t x1, uint16_t y1) {
